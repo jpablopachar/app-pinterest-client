@@ -1,7 +1,6 @@
 import js from '@eslint/js'
 import prettierConfig from 'eslint-config-prettier'
 import pluginImport from 'eslint-plugin-import'
-import pluginReact from 'eslint-plugin-react'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import globals from 'globals'
@@ -9,10 +8,6 @@ import globals from 'globals'
 export default [
   { ignores: ['dist'] },
   {
-    extends: [
-      js.configs.recommended,
-      pluginReact.configs.flat.recommended,
-    ],
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -30,7 +25,7 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
-      ...prettierConfig.rules,
+      ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
       'react-refresh/only-export-components': [
@@ -38,5 +33,16 @@ export default [
         { allowConstantExport: true },
       ],
     },
+    ignores: [
+      'node_modules',
+      'dist',
+      '**/*.d.ts',
+      '*.css',
+      '*.svg',
+      '*.jpeg',
+      '*.jpg',
+      '*.png',
+      'scripts',
+    ],
   },
 ]
