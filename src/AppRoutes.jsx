@@ -1,18 +1,22 @@
-import { lazy } from 'react'
-import { Route, Routes } from 'react-router'
+import { Suspense, lazy } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from './layouts/Main/Main'
 
 const AppRoutes = () => {
-  const MainLayout = lazy(() => import('./layouts/Main/Main'))
-  const Homepage = lazy(() => import('./pages/Home/Home'))
-  const AuthPage = lazy(() => import('./pages/Auth/Auth'))
+  const Home = lazy(() => import('./pages/Home/Home'))
+  const Auth = lazy(() => import('./pages/Auth/Auth'))
 
   return (
-    <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<Homepage />} />
-      </Route>
-      <Route path="/auth" element={<AuthPage />} />
-    </Routes>
+    <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route element={<Main />}>
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route path="/auth" element={<Auth />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   )
 }
 
