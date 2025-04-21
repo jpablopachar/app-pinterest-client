@@ -11,6 +11,7 @@ import { API_URL } from '../config/config'
  */
 export const baseApi = axios.create({
   baseURL: API_URL,
+  withCredentials: true,
 });
 
 /* export const fetchPhotos = async (page) => {
