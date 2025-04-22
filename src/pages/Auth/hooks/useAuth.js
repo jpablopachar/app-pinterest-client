@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
-import { baseApi } from '../../../api/baseApi'
+import { registerLogin } from '../../../services/auth.service'
 import useAuthStore from '../../../store/authStore'
 
 /**
@@ -42,10 +42,7 @@ const useAuth = () => {
 		const data = Object.fromEntries(formData.entries())
 
 		try {
-			const res = await baseApi.post(
-				`/users/auth/${isRegister ? 'register' : 'login'}`,
-				data,
-			)
+			const res = await registerLogin(isRegister ? 'register' : 'login', data)
 
 			setCurrentUser(res.data)
 			navigate('/')
