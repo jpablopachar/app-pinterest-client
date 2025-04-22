@@ -14,3 +14,16 @@ export const registerLogin = async (action, data) => {
 
 	return res.data
 }
+
+/**
+ * Cierra la sesión del usuario actual enviando una solicitud al endpoint de logout.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<any>} Una promesa que resuelve con la respuesta del servidor tras cerrar la sesión.
+ */
+export const logout = async () => {
+	const res = await baseApi.post('/users/auth/logout', {})
+
+	return res.data
+}
