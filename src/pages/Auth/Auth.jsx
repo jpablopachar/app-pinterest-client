@@ -1,36 +1,33 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router'
-import { baseApi } from '../../api/baseApi'
 import Image from '../../components/Image/Image'
-import useAuthStore from '../../store/authStore'
 import './Auth.css'
+import useAuth from './hooks/useAuth'
 
+/**
+ * Componente Auth
+ *
+ * Este componente gestiona la autenticación de usuarios, permitiendo tanto el inicio de sesión como el registro.
+ * Cambia dinámicamente entre los formularios de registro y login según el estado `isRegister`.
+ *
+ * Props: No recibe props directamente.
+ *
+ * Hooks:
+ * - useAuth: Hook personalizado que provee el estado y funciones necesarias para la autenticación:
+ *   - isRegister: Booleano que indica si se muestra el formulario de registro o de login.
+ *   - error: Mensaje de error a mostrar en caso de fallo en la autenticación.
+ *   - handleSubmit: Función que maneja el envío de los formularios.
+ *   - toggleAuthMode: Función para alternar entre los modos de registro e inicio de sesión.
+ *
+ * Estructura:
+ * - Muestra el logo y un título acorde al modo actual.
+ * - Formulario de registro: Solicita nombre de usuario, nombre, correo y contraseña.
+ * - Formulario de login: Solicita correo y contraseña.
+ * - Permite alternar entre ambos formularios.
+ * - Muestra mensajes de error si existen.
+ *
+ * @component
+ */
 const Auth = () => {
-	const navigate = useNavigate()
-
-	const [isRegister, setIsRegister] = useState(false)
-	const [error, setError] = useState(null)
-
-	const { setCurrentUser } = useAuthStore()
-
-	const handleSubmit = async (event) => {
-		event.preventDefault()
-
-		const formData = new FormData(event.target)
-		const data = Object.fromEntries(formData.entries())
-
-		try {
-			const res = await baseApi.post(
-				`/users/auth/${isRegister ? 'register' : 'login'}`,
-				data,
-			)
-
-			setCurrentUser(res.data)
-			navigate('/')
-		} catch (error) {
-			setError(error.response.data.message)
-		}
-	}
+	const { isRegister, error, handleSubmit, toggleAuthMode } = useAuth()
 
 	return (
 		<div className="authPage">
@@ -80,7 +77,7 @@ const Auth = () => {
 							/>
 						</div>
 						<button type="submit">Register</button>
-						<p onClick={() => setIsRegister(false)}>
+						<p onClick={toggleAuthMode}>
 							Do you have an account? <b>Login</b>
 						</p>
 						{error && <p className="error">{error}</p>}
@@ -108,7 +105,7 @@ const Auth = () => {
 							/>
 						</div>
 						<button type="submit">Login</button>
-						<p onClick={() => setIsRegister(true)}>
+						<p onClick={toggleAuthMode}>
 							Don&apos;t have an account? <b>Register</b>
 						</p>
 						{error && <p className="error">{error}</p>}
