@@ -4,6 +4,7 @@ import Main from './layouts/Main/Main'
 
 const AppRoutes = () => {
   const Home = lazy(() => import('./pages/Home/Home'))
+  const CreatePage = lazy(() => import('./pages/CreatePage/CreatePage'))
   const Auth = lazy(() => import('./pages/Auth/Auth'))
 
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
         <Routes>
           <Route element={<Main />}>
             <Route path="/" element={<Home />} />
+            <Route path="/create" element={<CreatePage />} />
           </Route>
           <Route path="/auth" element={<Auth />} />
         </Routes>
