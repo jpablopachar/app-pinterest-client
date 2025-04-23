@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import useEditorStore from '../../../../store/editorStore'
 import { landscapeSizes, portraitSizes } from './data/optionsData'
+import useOptions from './hooks/useOptions'
 
 /**
  * @typedef {Object} OptionsProps
@@ -28,82 +27,13 @@ const Options = ({ previewImg }) => {
 		selectedLayer,
 		textOptions,
 		canvasOptions,
+		isColorPickerOpen,
 		setTextOptions,
 		setCanvasOptions,
-	} = useEditorStore()
-
-	/**
-	 * Estado que indica si el selector de color (Color Picker) está abierto o cerrado.
-	 * @type {boolean}
-	 * @default false
-	 */
-	const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
-
-	/**
-	 * Determina la orientación original de la imagen de vista previa.
-	 * Si el ancho de la imagen es menor que su altura, la orientación será 'portrait' (vertical),
-	 * de lo contrario será 'landscape' (horizontal).
-	 *
-	 * @type {'portrait' | 'landscape'}
-	 */
-	const originalOrientation =
-		previewImg.width < previewImg.height ? 'portrait' : 'landscape'
-
-	/**
-	 * Maneja el cambio de orientación de la imagen en el editor.
-	 *
-	 * Calcula la nueva altura del lienzo según la orientación seleccionada y la relación de aspecto de la imagen de previsualización.
-	 * Si la orientación seleccionada es igual a la original, mantiene la relación de aspecto; de lo contrario, la invierte.
-	 * Actualiza las opciones del lienzo con la nueva orientación, tamaño original y altura calculada.
-	 *
-	 * @param {string} orientation - La nueva orientación seleccionada para la imagen (por ejemplo, 'horizontal' o 'vertical').
-	 */
-	const handleOrientationClick = (orientation) => {
-		let newHeight
-
-		if (originalOrientation === orientation) {
-			newHeight = (375 * previewImg.height) / previewImg.width
-		} else {
-			newHeight = (375 * previewImg.width) / previewImg.height
-		}
-
-		setCanvasOptions({
-			...canvasOptions,
-			orientation,
-			size: 'original',
-			height: newHeight,
-		})
-	}
-
-	/**
-	 * Maneja el evento de selección de tamaño para el lienzo.
-	 *
-	 * Calcula la nueva altura del lienzo en función del tamaño seleccionado y la orientación de la imagen original.
-	 * Si se selecciona el tamaño 'original', ajusta la altura según la orientación de la imagen y el lienzo.
-	 * Si se selecciona un tamaño personalizado, calcula la altura proporcionalmente.
-	 * Actualiza las opciones del lienzo con el nuevo tamaño y altura.
-	 *
-	 * @param {('original'|{name: string, width: number, height: number})} size - El tamaño seleccionado, puede ser 'original' o un objeto con nombre, ancho y alto.
-	 */
-	const handleSizeClick = (size) => {
-		let newHeight
-
-		if (size === 'original') {
-			if (originalOrientation === canvasOptions.orientation) {
-				newHeight = (375 * previewImg.height) / previewImg.width
-			} else {
-				newHeight = (375 * previewImg.width) / previewImg.height
-			}
-		} else {
-			newHeight = (375 * size.height) / size.width
-		}
-
-		setCanvasOptions({
-			...canvasOptions,
-			size: size === 'original' ? 'original' : size.name,
-			height: newHeight,
-		})
-	}
+		toggleColorPicker,
+		handleOrientationClick,
+		handleSizeClick,
+	} = useOptions(previewImg)
 
 	return (
 		<div className="options">
@@ -125,7 +55,7 @@ const Options = ({ previewImg }) => {
 							<div
 								className="colorPreview"
 								style={{ backgroundColor: textOptions.color }}
-								onClick={() => setIsColorPickerOpen((prev) => !prev)}
+								onClick={toggleColorPicker}
 							/>
 							{isColorPickerOpen && (
 								<div className="colorPicker">
@@ -212,7 +142,7 @@ const Options = ({ previewImg }) => {
 								<div
 									className="colorPreview"
 									style={{ backgroundColor: canvasOptions.backgroundColor }}
-									onClick={() => setIsColorPickerOpen((prev) => !prev)}
+									onClick={toggleColorPicker}
 								/>
 								{isColorPickerOpen && (
 									<div className="colorPicker">
