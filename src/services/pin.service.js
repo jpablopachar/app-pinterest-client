@@ -64,3 +64,17 @@ export const addPin = async (post) => {
 
 	return res.data
 }
+
+/**
+ * Obtiene un pin específico por su ID.
+ *
+ * @async
+ * @function
+ * @param {string} id - ID del pin que se desea obtener.
+ * @returns {Promise<Object>} El pin con todos sus datos.
+ */
+export const getPinById = async (id) => {
+	const res = await baseApi.get(`/pins/${id}`)
+
+	return res.data
+}
