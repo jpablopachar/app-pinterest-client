@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { format } from 'timeago.js'
-import { getBoards } from '../../services/board.service'
+import { getBoardsByUserId } from '../../services/board.service'
 import Image from '../Image/Image'
 import './Boards.css'
 
@@ -21,7 +21,7 @@ import './Boards.css'
 const Boards = ({ userId }) => {
 	const { isPending, error, data } = useQuery({
 		queryKey: ['boards', userId],
-		queryFn: async () => await getBoards(userId),
+		queryFn: async () => await getBoardsByUserId(userId),
 	})
 
 	if (isPending) return 'Loading...'

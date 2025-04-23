@@ -50,3 +50,17 @@ export const interactWithPin = async (id, type) => {
 
 	return res.data
 }
+
+/**
+ * Crea un nuevo pin en la plataforma.
+ *
+ * @async
+ * @function
+ * @param {Object} post - Datos del pin a crear.
+ * @returns {Promise<Object>} El pin creado con todos sus datos.
+ */
+export const addPin = async (post) => {
+	const res = await baseApi.post('/pins', post)
+
+	return res.data
+}
