@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { getBoards } from '../../../services/board.service'
+import { getBoardsByUserId } from '../../../services/board.service'
 import { addPin } from '../../../services/pin.service'
 import useAuthStore from '../../../store/authStore'
 import useEditorStore from '../../../store/editorStore'
@@ -80,7 +80,7 @@ const useCreatePage = () => {
 		error: boardsError,
 	} = useQuery({
 		queryKey: ['formBoards'],
-		queryFn: async () => await getBoards(),
+		queryFn: async () => await getBoardsByUserId(currentUser._id),
 	})
 
 	/**

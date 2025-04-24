@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { getComments } from '../../services/comment.service'
+import './Comments.css'
 import Comment from './components/Comment/Comment'
 import CommentForm from './components/CommentForm/CommentForm'
 

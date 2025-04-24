@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import Boards from '../../components/Boards/Boards'
 import Gallery from '../../components/Gallery/Gallery'
 import Image from '../../components/Image/Image'
-import { followUser } from '../../services/auth.service'
+import { getUser } from '../../services/auth.service'
 import FollowButton from './components/FollowButton/FollowButton'
 import './ProfilePage.css'
 
@@ -26,7 +26,7 @@ const ProfilePage = () => {
 
 	const { isPending, error, data } = useQuery({
 		queryKey: ['profile', username],
-		queryFn: async () => await followUser(username),
+		queryFn: async () => await getUser(username),
 	})
 
 	if (isPending) return 'Loading...'

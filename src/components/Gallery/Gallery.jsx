@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { getPins } from '../../services/pin.service'
 import GalleryItem from '../GalleryItem/GalleryItem'
 import Skeleton from '../Skeleton/Skeleton'
+import './Gallery.css'
 
 /**
  * @typedef {Object} GalleryProps
@@ -37,7 +38,6 @@ const Gallery = ({ search, userId, boardId }) => {
       next={fetchNextPage}
       hasMore={!!hasNextPage}
       loader={<h4>Loading more pins</h4>}
-      endMessage={<h3>All Posts Loaded!</h3>}
     >
       <div className="gallery">
         {allPins?.map((item) => (
