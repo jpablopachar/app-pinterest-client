@@ -44,7 +44,7 @@ const useAuth = () => {
 		try {
 			const res = await registerLogin(isRegister ? 'register' : 'login', data)
 
-			setCurrentUser(res.data)
+			setCurrentUser(res)
 			navigate('/')
 		} catch (error) {
 			setError(error.response.data.message)

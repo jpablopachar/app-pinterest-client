@@ -1,6 +1,7 @@
 import Layer from './components/Layer/Layer'
 import Options from './components/Options/Options'
 import Workspace from './components/Workspace/Workspace'
+import './Editor.css'
 
 /**
  * @typedef {Object} EditorProps
