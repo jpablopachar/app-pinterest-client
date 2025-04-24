@@ -1,13 +1,13 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Main from './layouts/Main/Main'
-import PostPage from './pages/PostPage/PostPage'
-import ProfilePage from './pages/ProfilePage/ProfilePage'
-import SearchPage from './pages/SearchPage/SearchPage'
 
 const AppRoutes = () => {
 	const Home = lazy(() => import('./pages/Home/Home'))
 	const CreatePage = lazy(() => import('./pages/CreatePage/CreatePage'))
+	const PostPage = lazy(() => import('./pages/PostPage/PostPage'))
+	const ProfilePage = lazy(() => import('./pages/ProfilePage/ProfilePage'))
+	const SearchPage = lazy(() => import('./pages/SearchPage/SearchPage'))
 	const Auth = lazy(() => import('./pages/Auth/Auth'))
 
 	return (
