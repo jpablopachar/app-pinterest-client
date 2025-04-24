@@ -1,6 +1,7 @@
 import Editor from '../../components/Editor/Editor'
 import Image from '../../components/Image/Image'
 import BoardForm from './components/BoardForm/BoardForm'
+import './CreatePage.css'
 import useCreatePage from './hooks/useCreatePage'
 
 /**

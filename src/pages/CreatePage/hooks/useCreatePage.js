@@ -58,6 +58,8 @@ const useCreatePage = () => {
 
 	const { currentUser } = useAuthStore()
 
+	console.log(currentUser);
+
 	const { textOptions, canvasOptions, resetStore } = useEditorStore()
 
 	const [file, setFile] = useState(null)
@@ -115,11 +117,11 @@ const useCreatePage = () => {
 		setIsNewBoardOpen((prev) => !prev)
 	}
 
-	useEffect(() => {
+	/* useEffect(() => {
 		if (!currentUser) {
 			navigate('/auth')
 		}
-	}, [navigate, currentUser])
+	}, [navigate, currentUser]) */
 
 	useEffect(() => {
 		if (file) {
