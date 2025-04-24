@@ -1,4 +1,5 @@
 import { IKImage } from 'imagekitio-react'
+import { IMAGEKIT_URL_ENDPOINT } from '../../config/config'
 
 /**
  * @typedef {Object} ImageProps
@@ -20,7 +21,7 @@ import { IKImage } from 'imagekitio-react'
 const Image = ({ path, src, alt, className, w, h }) => {
   return (
     <IKImage
-      urlEndpoint={import.meta.env.VITE_URL_IK_ENDPOINT}
+      urlEndpoint={IMAGEKIT_URL_ENDPOINT}
       path={path}
       src={src}
       transformation={[
@@ -33,6 +34,7 @@ const Image = ({ path, src, alt, className, w, h }) => {
       loading="lazy"
       className={className}
       lqip={{ active: true, quality: 20 }}
+      onError={(e) => console.error("Error en IKImage:", e)}
     />
   )
 }

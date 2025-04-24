@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router'
 import { logout } from '../../services/auth.service'
 import useAuthStore from '../../store/authStore'
 import Image from '../Image/Image'
-import './UserButton.scss'
+import './UserButton.css'
 
 /**
  * Muestra un botón de usuario que permite acceder a opciones como ver el perfil, configuración y cerrar sesión.
