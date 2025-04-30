@@ -1,5 +1,6 @@
 import { landscapeSizes, portraitSizes } from './data/optionsData'
 import useOptions from './hooks/useOptions'
+import { HexColorPicker } from 'react-colorful'
 
 /**
  * @typedef {Object} OptionsProps
